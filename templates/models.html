@@ -1,0 +1,59 @@
+<html>
+	
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+		<div class = 'pane'>
+		<h1 class="v1">{{ companies.name }}</h1>
+		
+		{% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if models !=[] %}
+
+		<a href = "{{url_for('newModel', company_id = companies.id )}}"><p class="v2">Add New Model</p></a>
+
+	<p class="v1">Bike models</h2>
+</br>
+
+		{% for i in models %}
+		<div class="inside2">
+
+			<p><strong class="v2">Model:</strong> {{i.name}}</p>
+
+			<p><strong class="v2">Description:</strong> {{i.description}}</p>
+
+			<p><strong class="v2">Wheel Size:</strong>  {{i.wheel_size}}</p>
+
+			<p><strong class="v2">Price:</strong> {{i.price}}</p>
+
+			<a href='{{url_for('editModel', company_id = companies.id, model_id=i.id ) }}' >Edit</a>
+			</br>
+			<a href='{{url_for('deleteModel', company_id = companies.id, model_id=i.id ) }}' >Delete</a>
+			</br>
+			</br>
+		</div>
+		{% endfor %}
+		<a href = '{{url_for('showCompanies')}}'><p class="v2">Return Home</p></a>
+		
+		
+
+		{% else %}
+		<p> You currently have no menu items. <p>
+		<a href = "{{url_for('newModel', company_id = companies.id )}}">Create New Item</a>
+		<a href = '{{url_for('showCompanies')}}'><p class="v2">Return Home</p></a>
+			{% endif %}
+
+</div>
+	</body>
+
+</html>

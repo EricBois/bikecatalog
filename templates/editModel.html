@@ -1,0 +1,65 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+
+<body>
+	<div class="pane">
+		<h1>Edit Model Details</h1>
+		<div class="inside">
+
+			<form action="#" method = 'post'>
+
+
+				<p>Name:</p>
+				<input type ='text' size='30' name='name' placeholder = '{{item.name }}'>
+				<p>Description:</p>
+				<input type ='text' size='30' name='description' placeholder = '{{item.description}}'>
+				<p>Price:</p>
+				<input type ='text' size='30' name='price' placeholder = '{{item.price}}'>
+				<p>Wheel Size:<p>
+
+					{% if item.wheel_size == '26' %}
+					<dd><input type ='radio' name='wheel_size' value='26'checked >26 inch</dd>
+					{%else%}
+					<dd><input type ='radio' name='wheel_size' value='26' >26 inch</dd>
+					{% endif %}
+
+					{% if item.wheel_size == '27.5' %}
+					<dd><input type ='radio' name='wheel_size' value='27.5' checked>27.5 inch</dd>
+
+					{%else%}
+					<dd><input type ='radio' name='wheel_size' value='27.5'>27.5 inch</dd>
+					{% endif %}
+
+					{% if item.wheel_size == '29' %}
+					<dd><input type ='radio' name='wheel_size' value='29'checked >29 inch</dd>
+
+					{% else %}
+					<dd><input type ='radio' name='wheel_size' value='29'>29 inch</dd>
+
+					{% endif %}
+
+
+					{%if item.wheel_size =='700c'%}
+					<dd><input type ='radio' name='wheel_size' value='700c'checked >700c road</dd>
+					{% else %}
+					<dd><input type ='radio' name='wheel_size' value='700c'>700c road</dd>
+					{% endif %}
+				</br>
+
+
+
+					<input type='submit' value='Edit'>
+
+
+					<a href = '{{url_for('showModels', company_id = company_id)}}'> Cancel </a>
+
+
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+

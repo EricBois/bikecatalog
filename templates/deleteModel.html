@@ -1,0 +1,24 @@
+<html>
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+	<div class="pane">
+		<h1> Are you sure you want to delete {{model.name}}? </h1>
+		<div class="inside">
+			<form action="#" method = 'post'>
+
+				<input type='submit', value = 'Delete'>
+
+
+
+
+			</form>
+
+			<a href = '{{url_for('showModels', company_id = company_id)}}'> Cancel </a>
+		</div>
+	</div>
+</body>
+
+</html>

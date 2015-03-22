@@ -1,0 +1,36 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+<body>
+
+<div class="pane">
+	<h1>New Bike Model</h1>
+	<div class="inside">
+
+		<form action="#" method = 'post'>
+
+
+			<p>Name:</p>
+				<input type ='text' size='30' name='name'>
+			<p>Description:</p>
+				<input type ='text' size='30' name='description'>
+			<p>Price:</p>
+				<input type ='text' size='30' name='price'>
+			<p>wheel size:</p>
+				<input type ='radio'  name='wheel_size' value ='26'>26 inch</br>
+				<input type ='radio'  name='wheel_size' value ='27.5'>27.5 inch</br>
+				<input type ='radio' name='wheel_size' value ='29'>29 inch</br>
+				<input type ='radio'  name='wheel_size' value ='700c'>700c road</br>
+	</br>
+
+
+		<input type='submit' value='Create'>
+
+		</form>
+	</div>
+</div>
+
+</body>
+</html>

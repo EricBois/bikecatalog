@@ -1,0 +1,43 @@
+@font-face {
+	font-family: 'Conv_coolvetica rg';
+	src: url('fonts/coolvetica rg.eot');
+	src: local('☺'), url('fonts/coolvetica rg.woff') format('woff'), url('fonts/coolvetica rg.ttf') format('truetype'), url('fonts/coolvetica rg.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body            { font-family: sans-serif; background-color: #333333; background-image: url('http://p1.pichost.me/i/17/1400143.jpg')}
+ h1, h2, h3, h4       { color: #CCCCCC; }
+h1, h2          { font-family: 'Georgia', serif; margin: 0; }
+h1              { border-bottom: 2px solid #eee; }
+h2              { font-size: 1.2em; }
+strong.v2 {
+
+	color: #ccffff;
+}
+h1.v1 {font-family:'Conv_Sansus Webissimo-Regular',Sans-Serif;}
+p.v1 { font-family:'Conv_coolvetica rg',Sans-Serif; font-size: 40px; color: #ffffff;}
+p.v2 {font-family:'Conv_coolvetica rg',Sans-Serif; font-size: 20px; color: #ffffff;}
+
+p { color: #33ffff; font-family:'Conv_Sansus Webissimo-Regular',Sans-Serif;}
+
+a {text-decoration: none; color:#FFFFCC; font-size: .75em;}
+
+.pane {position:absolute; opacity: 0.8; text-align: center; left: 25%; right: 25%; border: 2px solid;
+    border-radius: 25px; padding: 5px; margin: 5px; border-color: #999999; background-color: #006699; }
+
+.inside2 {-moz-opacity: 0.9; -khtml-opacity: 0.9; opacity: 0.9; text-align: justify; left: 25%; right: 25%; border: 2px solid;
+    border-radius: 25px; padding: 5px; margin: 5px; border-color: #999999; background-color: #006699; }
+
+.inside {opacity: 0.9; text-align: center; left: 25%; right: 25%; border: 2px solid;
+    border-radius: 25px; padding: 5px; margin: 5px; border-color: #999999; background-color: #006699; }
+.header         {left:50%; text-align: center;}
+.name {width:50%;display: inline-block; float: left;}
+.description {}
+.price {text-align: right; width:50%; float: right; }
+.editdeletepane{}
+
+.flash          { background: #cee5F5; }
+
+
+

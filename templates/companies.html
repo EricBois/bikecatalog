@@ -1,0 +1,29 @@
+<html>
+
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+
+
+<body>
+<div class = 'pane'>
+	<h1 class="v1">Bicycle Brands</h1>
+
+	<a href="{{url_for('newCompany')}}" > <h3> Create a New Company </h3> </a>
+
+	{% for companie in companies %}
+	<div class="inside">
+		<a href = "{{url_for('showModels', company_id = companie.id)}}"> <p class="v1">{{companie.name}}</p></a>
+		<a href = "{{url_for('editCompany',company_id = companie.id)}}"><p class="v2">Edit Company</p></a>
+		<a href = "{{url_for('deleteCompany',company_id = companie.id)}}"><p class="v2">Delete Company</p></a>
+	</div>
+
+
+
+
+	{% endfor %}
+
+</div>
+</body>
+
+</html>
