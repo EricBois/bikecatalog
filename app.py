@@ -19,7 +19,6 @@ session = DBSession()
 @app.route('/companies/')
 def showCompanies():
 	companies = session.query(Companies).all()
-	#return "This page will show all my brands"
 	return render_template('companies.html', companies = companies)
 	
 
@@ -66,7 +65,6 @@ def showModels(company_id):
 	companies = session.query(Companies).filter_by(id = company_id).one()
 	models = session.query(Models).filter_by(company_id = company_id).all()
 	return render_template('models.html', models=models, companies=companies)
-	 #return 'This page is the menu for brands %s' % brand_id
 
 #Create a new menu item
 @app.route('/companies/<int:company_id>/menu/new/',methods=['GET','POST'])
@@ -81,7 +79,6 @@ def newModel(company_id):
 		return render_template('newModel.html', company_id = company_id)
 
 	return render_template('newModel.html', companies=companies)
-	#return 'This page is for making a new menu item for brands %s' %brand_id
 
 #Edit a menu item
 @app.route('/brands/<int:company_id>/menu/<int:model_id>/edit', methods=['GET','POST'])
