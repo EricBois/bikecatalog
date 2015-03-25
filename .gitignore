@@ -4,7 +4,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+*.db
 # Distribution / packaging
 .Python
 env/
@@ -49,7 +49,7 @@ coverage.xml
 
 # Django stuff:
 *.log
-
+bikecatalog.db
 # Sphinx documentation
 docs/_build/
 
