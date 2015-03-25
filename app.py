@@ -1,11 +1,30 @@
 from flask import Flask, render_template, request, redirect,jsonify, url_for
-app = Flask(__name__)
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Companies, Models
+from database_setup import Base, Companies, Models, User
+
+from flask.ext.login import LoginManager, UserMixin, login_user, logout_user,\
+    current_user
+from oauth import OAuthSignIn
+from flask.ext.login import login_required
 
 
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'top secret!'
+app.config['OAUTH_CREDENTIALS'] = {
+    'facebook': {
+        'id': '',
+        'secret': ''
+    },
+    'twitter': {
+        'id': '',
+        'secret': ''
+    }
+}
+
+lm = LoginManager(app)
+lm.login_view = 'index'
 
 engine = create_engine('sqlite:///bikecatalog.db')
 Base.metadata.bind = engine
@@ -13,9 +32,47 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+@lm.user_loader
+def load_user(id):
+    return session.query(User).filter_by(id=id).one()
 
-#Show all brands
 @app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
+@app.route('/authorize/<provider>')
+def oauth_authorize(provider):
+    if not current_user.is_anonymous():
+        return redirect(url_for('index'))
+    oauth = OAuthSignIn.get_provider(provider)
+    return oauth.authorize()
+
+
+@app.route('/callback/<provider>')
+def oauth_callback(provider):
+    if not current_user.is_anonymous():
+        return redirect(url_for('index'))
+    oauth = OAuthSignIn.get_provider(provider)
+    social_id, username, email = oauth.callback()
+    if social_id is None:
+        flash('Authentication failed.')
+        return redirect(url_for('index'))
+    user = session.query(User).filter_by(social_id=social_id).first()
+    if not user:
+        user = User(social_id=social_id, nickname=username, email=email)
+        session.add(user)
+        session.commit()
+    login_user(user, True)
+    return redirect(url_for('showCompanies'))
+
+
 @app.route('/companies/')
 def showCompanies():
 	companies = session.query(Companies).all()
@@ -24,6 +81,7 @@ def showCompanies():
 
 #Create a new brands
 @app.route('/companies/new/', methods=['GET','POST'])
+@login_required
 def newCompany():
 	if request.method == 'POST':
 		newcompany = Companies(name = request.form['name'])
@@ -36,6 +94,7 @@ def newCompany():
 
 #Edit a brands
 @app.route('/companies/<int:company_id>/edit/', methods = ['GET', 'POST'])
+@login_required
 def editCompany(company_id):
 	company = session.query(Companies).filter_by(id = company_id).one()
 	if request.method == 'POST':
@@ -48,6 +107,7 @@ def editCompany(company_id):
 
 #Delete a brands
 @app.route('/companies/<int:company_id>/delete/', methods = ['GET','POST'])
+@login_required
 def deleteCompany(company_id):
 	companyDelete = session.query(Companies).filter_by(id = company_id).one()
 	if request.method == 'POST':
@@ -68,6 +128,7 @@ def showModels(company_id):
 
 #Create a new menu item
 @app.route('/companies/<int:company_id>/menu/new/',methods=['GET','POST'])
+@login_required
 def newModel(company_id):
 	if request.method == 'POST':
 		newModel = Models(name = request.form['name'], description = request.form['description'], price = request.form['price'], wheel_size = request.form['wheel_size'], company_id = company_id)
@@ -82,6 +143,7 @@ def newModel(company_id):
 
 #Edit a menu item
 @app.route('/brands/<int:company_id>/menu/<int:model_id>/edit', methods=['GET','POST'])
+@login_required
 def editModel(company_id, model_id):
 	Model = session.query(Models).filter_by(id = model_id).one()
 	if request.method == 'POST':
@@ -103,6 +165,7 @@ def editModel(company_id, model_id):
 
 #Delete a menu item
 @app.route('/companies/<int:company_id>/menu/<int:model_id>/delete', methods = ['GET','POST'])
+@login_required
 def deleteModel(company_id,model_id):
 	ModelDelete = session.query(Models).filter_by(id = model_id).one() 
 	if request.method == 'POST':

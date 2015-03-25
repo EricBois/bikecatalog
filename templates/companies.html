@@ -8,14 +8,22 @@
 <body>
 <div class = 'pane'>
 	<h1 class="v1">Bicycle Brands</h1>
-
-	<a href="{{url_for('newCompany')}}" > <h3> Create a New Company </h3> </a>
+	{% if current_user.is_authenticated() %}
+      <p class="v2">Hi, {{ current_user.nickname }}!</p>
+    {% endif %}
+	{% if current_user.is_authenticated() %}
+	<a href="{{url_for('newCompany')}}" > <h3> Create a New Company </h3> </a><a href="{{url_for('logout')}}" > <h3> Logout</h3> </a>
+	{% else %}
+	<a href = "{{url_for('index')}}"><p class="v2">Login</p></a>
+	{% endif %}
 
 	{% for companie in companies %}
 	<div class="inside">
 		<a href = "{{url_for('showModels', company_id = companie.id)}}"> <p class="v1">{{companie.name}}</p></a>
+		{% if current_user.is_authenticated() %}
 		<a href = "{{url_for('editCompany',company_id = companie.id)}}"><p class="v2">Edit Company</p></a>
 		<a href = "{{url_for('deleteCompany',company_id = companie.id)}}"><p class="v2">Delete Company</p></a>
+		{% endif %}
 	</div>
 
 

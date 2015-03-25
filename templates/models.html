@@ -19,8 +19,12 @@
     {% endwith %}
 
     {% if models !=[] %}
-
+    	{% if current_user.is_authenticated() %}
 		<a href = "{{url_for('newModel', company_id = companies.id )}}"><p class="v2">Add New Model</p></a>
+		{% else %}
+		<a href = "{{url_for('index',)}}"><p class="v2">Login</p></a>
+
+		{% endif %}
 
 	<p class="v1">Bike models</h2>
 </br>
@@ -35,10 +39,11 @@
 			<p><strong class="v2">Wheel Size:</strong>  {{i.wheel_size}}</p>
 
 			<p><strong class="v2">Price:</strong> {{i.price}}</p>
-
+			{% if current_user.is_authenticated() %}
 			<a href='{{url_for('editModel', company_id = companies.id, model_id=i.id ) }}' >Edit</a>
 			</br>
 			<a href='{{url_for('deleteModel', company_id = companies.id, model_id=i.id ) }}' >Delete</a>
+			{% endif %}
 			</br>
 			</br>
 		</div>

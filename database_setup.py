@@ -4,8 +4,16 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
- 
+from flask.ext.login import UserMixin
+
 Base = declarative_base()
+
+class User(UserMixin, Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    social_id = Column(String(64), nullable=False, unique=True)
+    nickname = Column(String(64), nullable=False)
+    email = Column(String(64), nullable=True)
  
 class Companies(Base):
     __tablename__ = 'companies'
