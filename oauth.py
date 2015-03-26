@@ -30,7 +30,7 @@ class OAuthSignIn(object):
                 self.providers[provider.provider_name] = provider
         return self.providers[provider_name]
 
-
+#Implementation for Facebook
 class FacebookSignIn(OAuthSignIn):
     def __init__(self):
         super(FacebookSignIn, self).__init__('facebook')
@@ -67,7 +67,7 @@ class FacebookSignIn(OAuthSignIn):
             me.get('email')
         )
 
-
+#implementation for Twitter
 class TwitterSignIn(OAuthSignIn):
     def __init__(self):
         super(TwitterSignIn, self).__init__('twitter')
